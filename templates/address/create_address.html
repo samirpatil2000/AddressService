@@ -40,5 +40,17 @@
         </fieldset>
       </form>
     </div>
+
+    <script type="text/javascript">
+        var apiUrl = 'http://127.0.0.1:8000/api/zipcodes/233444';
+        fetch(apiUrl).then(response => {
+          return response.json();
+        }).then(data => {
+          // Work with JSON data here
+          console.log(data);
+        }).catch(err => {
+          // Do something for an error here
+        });
+    </script>
   </body>
 </html>

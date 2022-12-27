@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     # Third Party
     'crispy_forms',
+    'rest_framework',
 
     # local app
     'address'

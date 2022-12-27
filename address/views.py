@@ -16,3 +16,5 @@ def create_address(request):
         "form": address_form
     }
     return render(request, template_name='address/create_address.html', context=context)
+
+
