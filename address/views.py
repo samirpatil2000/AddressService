@@ -1,8 +1,16 @@
 from django.shortcuts import render, redirect
 from .forms import AddressForm
+
+
 # Create your views here.
+from .models import Address
 
 
+def list_address(request):
+    context = {
+        "objects": Address.objects.all()
+    }
+    return render(request, template_name='address/address_list.html', context=context)
 
 def create_address(request):
     address_form = AddressForm()
@@ -16,5 +24,3 @@ def create_address(request):
         "form": address_form
     }
     return render(request, template_name='address/create_address.html', context=context)
-
-

@@ -8,14 +8,15 @@
   </head>
   <body>
     <div class="container">
-        {% comment %} <form method="POST"> {% csrf_token %} <fieldset class="form-group">
+        {% comment %} <form method="POST">  <fieldset class="form-group">
           <legend class="'border-bottom mb-4">Add Address</legend>
           {{ form | crispy }}
           <div class="form-group"><button class="btn btn-outline-info" type="submit">Submit</button></div>
         </fieldset>
       </form>
       {% endcomment %}
-      <form method="POST"><input type="hidden" name="csrfmiddlewaretoken" value="sddyQ8v9IVYtiGed8sCk8ub1Wk1cBvdjNuLM7rT11R7oFqpIAfpEi1IwaWpnc4rt">
+      <form method="POST">
+          {% csrf_token %}
         <fieldset class="form-group">
           <legend class="'border-bottom mb-4">Add Address</legend>
           <div id="div_id_name" class="form-group"><label for="id_name" class=" requiredField"> Name <span class="asteriskField">*</span></label>
