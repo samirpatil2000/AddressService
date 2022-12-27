@@ -27,9 +27,16 @@
           <div id="div_id_address_line_2" class="form-group"><label for="id_address_line_2" class=""> Address line 2 </label>
             <div class=""><input type="text" name="address_line_2" maxlength="300" class="textinput textInput form-control" id="id_address_line_2"></div>
           </div>
-          <div id="div_id_zipcode" class="form-group"><label for="id_zipcode" class=" requiredField"> Zipcode <span class="asteriskField">*</span></label>
-            <div class=""><input type="text" name="zipcode" maxlength="6" class="textinput textInput form-control" required="" id="id_zipcode"></div>
+          <div id="div_id_zipcode" class="form-group">
+              <label for="id_zipcode"  id="id_zipcode_label" class=" requiredField"> Zipcode
+                  <span class="asteriskField">*</span>
+              </label>
+              <div class="row">
+                    <div class=""><input type="text" name="zipcode" maxlength="6" class="textinput textInput form-control" required="" id="id_zipcode" style="margin-left: 15px"></div>
+                    <a class="btn btn-outline-info" onclick="call_zipcode_api()" style="margin-left: 20px">Get Cities</a>
+              </div>
           </div>
+
           <div id="div_id_city" class="form-group"><label for="id_city" class=" requiredField"> City <span class="asteriskField">*</span></label>
             <div class=""><input type="text" name="city" maxlength="50" class="textinput textInput form-control" required="" id="id_city"></div>
           </div>
@@ -41,16 +48,41 @@
       </form>
     </div>
 
-    <script type="text/javascript">
-        var apiUrl = 'http://127.0.0.1:8000/api/zipcodes/233444';
-        fetch(apiUrl).then(response => {
-          return response.json();
-        }).then(data => {
-          // Work with JSON data here
-          console.log(data);
-        }).catch(err => {
-          // Do something for an error here
-        });
+    <script>
+        function call_zipcode_api(){
+            var zipcodeObject = document.getElementById("id_zipcode")
+            var zipcode = zipcodeObject.value
+            console.log(zipcode)
+            if (!zipcode){
+                zipcodeObject.focus()
+            }
+            var apiUrl = `http://127.0.0.1:8000/api/zipcodes/${zipcode}`;
+            fetch(apiUrl).
+            then(async response => {
+                var jsonResponse = await response.json()
+                jsonResponse["status"] = response.status
+                return jsonResponse
+            }).
+            then(data => {
+                console.log("Hello", data);
+                console.log("Hello Samir", data.status)
+                var zipcodeLabelObject = document.getElementById("id_zipcode_label");
+                var cityObject = document.getElementById("id_city")
+                var stateObject = document.getElementById("id_state")
+                if (data.status === 200){
+                    cityObject.setAttribute("value", data.city)
+                    stateObject.setAttribute("value", data.state)
+                    zipcodeLabelObject.style = "color: black"
+                }else{
+                    zipcodeObject.value = "";
+                    zipcodeLabelObject.style = "color: red"
+                    zipcodeLabelObject.focus()
+                }
+            }).catch(err => {
+                console.log(err);
+            });
+        }
+
     </script>
   </body>
 </html>
