@@ -33,8 +33,7 @@
                   <span class="asteriskField">*</span>
               </label>
               <div class="row">
-                    <div class=""><input type="text" name="zipcode" maxlength="6" class="textinput textInput form-control" required="" id="id_zipcode" style="margin-left: 15px" oninput="setTimeout(call_zipcode_api, 2300)"></div>
-{#                    <a class="btn btn-outline-info" onclick="call_zipcode_api()" style="margin-left: 20px">Get Cities</a>#}
+                    <div class=""><input type="text" name="zipcode" maxlength="6" class="textinput textInput form-control" required="" id="id_zipcode" style="margin-left: 15px" oninput="call_zipcode_api()"></div>
               </div>
           </div>
 
@@ -53,8 +52,7 @@
         function call_zipcode_api(){
             var zipcodeObject = document.getElementById("id_zipcode")
             var zipcode = zipcodeObject.value
-            if (!zipcode){
-                zipcodeObject.focus()
+            if (zipcode.length < 6){
                 return
             }
             var apiUrl = `/api/zipcodes/${zipcode}`;
@@ -73,7 +71,6 @@
                     stateObject.setAttribute("value", data.state)
                     zipcodeLabelObject.style = "color: black"
                 }else{
-                    zipcodeObject.value = "";
                     cityObject.setAttribute("value", "")
                     stateObject.setAttribute("value", "")
                     zipcodeLabelObject.style = "color: red"
