@@ -1,9 +1,23 @@
 from rest_framework import status
 from rest_framework.response import Response
+
+from address.models import Address
+
+from address.serializer import AddressSerializer
+
 from rest_framework.views import APIView
 from variables.zipcodes import get_city_details, is_valid_zipcode
+from .generic import CustomAPIView
 
-class AddressVIEW(APIView):
+
+class AddressAPIView(CustomAPIView):
+    Model = Address
+    queryset = Model.objects.all()
+    serializer_class = AddressSerializer
+
+
+
+class ZipCodeVIEW(APIView):
 
     def get(self, request, zipcode, *args, **kwargs):
         is_valid = is_valid_zipcode(zipcode)

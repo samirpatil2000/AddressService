@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import create_address, list_address
-from .api_views import AddressVIEW
+from address.api_views import AddressAPIView, ZipCodeVIEW
 
 urlpatterns = [
     # HTTP WEB
@@ -8,5 +8,7 @@ urlpatterns = [
     path("address/", list_address, name="address"),
 
     # REST
-    path("api/zipcodes/<str:zipcode>", AddressVIEW.as_view()),
+    path("api/zipcodes/<str:zipcode>", ZipCodeVIEW.as_view()),
+    path("api/address/", AddressAPIView.as_view()),
+    
 ]
