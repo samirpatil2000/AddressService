@@ -13,3 +13,13 @@ class Address(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class LatLong(models.Model):
+    latitude = models.CharField(max_length=100)
+    longitude = models.CharField(max_length=100)
+    request_id = models.IntegerField()
+    created_at = models.DateTimeField(verbose_name='date of creation', auto_now_add=True)
+
+    def __str__(self):
+        return self.latitude + " - " + self.longitude
